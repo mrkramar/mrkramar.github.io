@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Monoton|Montserrat");
 
 body {
-  overflow: hidden;
   margin: 0;
   font-family: "Montserrat";
   display: flex;
