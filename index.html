@@ -1,7 +1,94 @@
-<html>
-		<head>
-		</head>
-		<body>
-				<h1>testing site</h1>
-		</body>
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Úvod">
+  <meta name="author" content="Maros Kramar">
+
+  <title>Úvod</title>
+
+  <link href="./vendor/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+      <div class="row" id="menu">
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+          <h1 onclick="showPage('about');">about me</h>
+        </div>
+        <div class="col-sm">
+          <h1 onclick="showPage('projects');">projects</h>
+        </div>
+        <div class="col-sm">
+          <h1 onclick="showPage('contact');">contact</h>
+        </div>
+        <div class="col-sm">
+        </div>
+      </div>
+
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-12">
+
+        <div id="about" class="page text-center">
+          <p>my name is maros</p>
+        </div>
+
+        <div id="projects" class="page text-center">
+          <p>nothing here yet</p>
+        </div>
+
+        <div id="contact" class="page text-center">
+          <p>maroskramar2@gmail.com</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // rotating background colors
+    var bgColors = [
+      '#33d9b2',
+      '#34ace0',
+      '#ffb142',
+      '#ff793f',
+    ]
+    var currentBgColor = -1;
+
+    window.onload = function() {   
+    }
+
+    function setNextBgColor() {
+      currentBgColor++;
+      if(currentBgColor >= bgColors.length) currentBgColor = 0;
+      document.body.style.backgroundColor = bgColors[currentBgColor];
+    }
+
+    function showPage(page) {
+      var pages = document.getElementsByClassName('page');
+      for(var i = 0; i < pages.length; i++)
+        pages[i].style.display='none';
+      document.getElementById(page).style.display='block';
+      setNextBgColor();
+    }
+  </script>
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./vendor/js/jquery-3.2.1.min.js"></script>
+  <script src="./vendor/js/popper.min.js"></script>
+  <script src="./vendor/js/bootstrap.min.js"></script>
+  <script src="./vendor/js/navbutton.js"></script>
+
+
+</body>
+
 </html>
