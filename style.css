@@ -1,62 +1,88 @@
-@import url("https://fonts.googleapis.com/css?family=Monoton|Montserrat");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;400;600;800&display=swap');
 
 body {
-  margin: 0;
-  font-family: "Montserrat";
-  display: flex;
-  min-height: 100vh;
-  background-position: center;
-  background-size: cover;
-  -webkit-transition: background-color 1.5s ease;
-  -moz-transition: background-color 1.5s ease;
-  -o-transition: background-color 1.5s ease;
-  transition: background-color 1.5s ease;
-  background-color: #ffda79;
+  padding: 0 2% 0 2%
 }
 
-#menu {
-  position: absolute;
-  top: 90%;
-  width: 50%;
-  height: 60px;
-  line-height: 60px;
-  color: black;
-  -webkit-transition: all 0.6s ease-in-out;
-  transition: all 0.6s ease-in-out;
+hr {
+  border-top: 1px solid lightgray;
+  margin-top: 14%
 }
 
-#menu h1 {
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  letter-spacing: normal;
+#menu { 
+  font-size: 1.8rem;
+  display: inline;
+}
+
+#menu a {
+  outline:none;
+  font-family: "Inter", Helvetica;
+  font-size: 1.3rem;
+  display: block;
   text-decoration: none;
-  cursor: pointer;
-  -webkit-transition: all 0.6s ease-in-out;
-  transition: all 0.6s ease-in-out;
+  color: #2C82C9;
+  margin-right: 5%;
+}
+
+#navbar { margin-top: 3%}
+
+#navbar h1 {
+  font-family: "Inter", Helvetica;
+  font-weight: 600;
+  font-size: 2rem;
+  display: inline;
+  margin-right: 5%;
+}
+
+h2 {
+  font-family: "Inter", Helvetica;
+  font-weight: 800 !important;
+  font-size: 8vw;
   text-align: center;
+  margin-top: 14%
 }
 
-#menu h1:hover {
-  color: #e74c3c;
-  font-size: 1.55rem;
+p {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.3rem;
+  padding: 0 5% 0 5%;
+  text-align: justify;
 }
 
-.content {
-  margin-left: 2rem;
-  margin-top: 4rem;
-  overflow: auto;
-  color: black;
-  font-size: 3rem;
+.post a {
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  color: #2C82C9;
+  font-family: "Inter", Helvetica;
+  font-size: 1rem;
 }
 
-.page {
-  position: fixed;
-  display: none;
-  
-}
-
-@media only screen and (max-width: 800px) {
-  #menu {
-    bottom: 8rem;
+@media only screen and (min-width: 1000px) {
+  body {
+    padding: 0 15% 0 15%
   }
+
+  #menu a {
+    display: inline;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 4rem;
+  }
+
+  p { 
+    font-size: 1.5rem;
+    padding: 0 15% 0 15%;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  body { padding: 0 26% 0 26%; }
+  p { padding: 0 15% 0 15%; }
+}
+
+@media only screen and (min-width: 2000px) {
+  p { padding: 0 20% 0 20%; }
 }

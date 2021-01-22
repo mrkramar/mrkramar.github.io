@@ -1,90 +1,68 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Úvod">
-  <meta name="author" content="Maros Kramar">
-
-  <title>Úvod</title>
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>mk | blog</title>
   <link href="style.css" rel="stylesheet">
-
 </head>
 
 <body>
 
-      <div class="row" id="menu">
-        <div class="col-4">
-          <h1 onclick="showPage('about');">about me</h>
-        </div>
-        <div class="col-4">
-          <h1 onclick="showPage('projects');">projects</h>
-        </div>
-        <div class="col-4">
-          <h1 onclick="showPage('contact');">contact</h>
-        </div>
-      </div>
-
-  <div class="container-fluid">
-    <div class="row content">
-      <div class="col-12">
-
-        <div id="about" class="page text-center">
-          <p>my name is maros</p>
-        </div>
-
-        <div id="projects" class="page text-center">
-          <p>nothing here yet</p>
-        </div>
-
-        <div id="contact" class="page text-center">
-          <p>maroskramar2@gmail.com</p>
-        </div>
-
-      </div>
+  <div id="navbar">
+    <h1>mk</h1>
+    <div id="menu">
+      <a href="./index.html">blog</a>
+      <a href="./about.html">about</a>
+      <a href="./contact.html">contact</a>
     </div>
   </div>
 
-  <script>
-    // rotating background colors
-    var bgColors = [
-      '#33d9b2',
-      '#34ace0',
-      '#ffb142',
-      '#ff793f',
-    ]
-    var currentBgColor = -1;
+  <div class="post">
+    <h2>lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+    <p>
+      In auctor vitae justo vel blandit. Maecenas at diam ante. Nunc eget rutrum purus, ut finibus elit. 
+      Mauris scelerisque urna eget tortor luctus, eu pretium sem fermentum. Praesent sed mauris ipsum. 
+      Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis lorem justo, egestas eu sodales eu, varius ultricies turpis. 
+      Morbi finibus ipsum sed magna vestibulum, at eleifend diam volutpat. Aenean aliquam, nibh sed mattis hendrerit, tellus massa commodo dui, 
+      sed convallis lorem sem ac enim. Duis tristique enim dui, eget aliquet dui auctor eu.
+      Phasellus sit amet dictum neque. Donec fermentum tempor nibh vestibulum placerat. Duis nibh turpis, aliquam vel nisi et, 
+      iaculis consequat enim. Nam leo quam, porttitor et lacinia in, interdum sed diam.
+    </p>
+    <a href="./posts/1.html">read more</a>
+    <hr>
+  </div>
 
-    window.onload = function() {
-    }
+  <div class="post">
+    <h2>lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+    <p>
+      In auctor vitae justo vel blandit. Maecenas at diam ante. Nunc eget rutrum purus, ut finibus elit. 
+      Mauris scelerisque urna eget tortor luctus, eu pretium sem fermentum. Praesent sed mauris ipsum. 
+      Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis lorem justo, egestas eu sodales eu, varius ultricies turpis. 
+      Morbi finibus ipsum sed magna vestibulum, at eleifend diam volutpat. Aenean aliquam, nibh sed mattis hendrerit, tellus massa commodo dui, 
+      sed convallis lorem sem ac enim. Duis tristique enim dui, eget aliquet dui auctor eu.
+      Phasellus sit amet dictum neque. Donec fermentum tempor nibh vestibulum placerat. Duis nibh turpis, aliquam vel nisi et, 
+      iaculis consequat enim. Nam leo quam, porttitor et lacinia in, interdum sed diam.
+    </p>
+    <a href="./posts/1.html">read more</a>
+    <hr>
+  </div>
 
-    function setNextBgColor() {
-      currentBgColor++;
-      if(currentBgColor >= bgColors.length) currentBgColor = 0;
-      document.body.style.backgroundColor = bgColors[currentBgColor];
-    }
-
-    function showPage(page) {
-      var pages = document.getElementsByClassName('page');
-      for(var i = 0; i < pages.length; i++)
-        pages[i].style.display='none';
-      document.getElementById(page).style.display='block';
-      setNextBgColor();
-    }
-  </script>
-
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="./vendor/js/jquery-3.2.1.min.js"></script>
-  <script src="./vendor/js/popper.min.js"></script>
-  <script src="./vendor/js/bootstrap.min.js"></script>
-  <script src="./vendor/js/navbutton.js"></script>
-
+  <div class="post">
+    <h2>lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+    <p>
+      In auctor vitae justo vel blandit. Maecenas at diam ante. Nunc eget rutrum purus, ut finibus elit. 
+      Mauris scelerisque urna eget tortor luctus, eu pretium sem fermentum. Praesent sed mauris ipsum. 
+      Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis lorem justo, egestas eu sodales eu, varius ultricies turpis. 
+      Morbi finibus ipsum sed magna vestibulum, at eleifend diam volutpat. Aenean aliquam, nibh sed mattis hendrerit, tellus massa commodo dui, 
+      sed convallis lorem sem ac enim. Duis tristique enim dui, eget aliquet dui auctor eu.
+      Phasellus sit amet dictum neque. Donec fermentum tempor nibh vestibulum placerat. Duis nibh turpis, aliquam vel nisi et, 
+      iaculis consequat enim. Nam leo quam, porttitor et lacinia in, interdum sed diam.
+    </p>
+    <a href="./posts/1.html">read more</a>
+    <hr>
+  </div>
 
 </body>
-
 </html>
