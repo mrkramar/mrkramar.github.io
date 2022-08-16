@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>mk | blog</title>
+  <link href="../style.css" rel="stylesheet">
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<body>
+
+  <div id="navbar">
+    <h1>mk</h1>
+    <div id="menu">
+      <a href="../index.html">blog</a>
+      <a href="../about.html">about</a>
+      <a href="../contact.html">contact</a>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="post">
+    <h2>Designing and building handwired split mechanical keyboard</h2>
+    <p>
+        As a computer science student a keyboard is my everyday tool. For a long time, I used a cheap chinese brand 65% mechanical keyboard. 
+        I enjoyed the feeling when typing on it (it had knock-off Cherry MX brown switches), as opposed to my previous very old membrane keyboard.
+
+        Soon I discovered, there is a big community focused on building custom keyboards, but the prices of some branded parts seemed really crazy to me. 
+        <br><br>
+        Later, I found out, there are people who design and make the keyboards by themselves, according to their needs, and it can also be done on a healthy budget.
+        With access to 3D printer and my passion to design and make things, the idea of building my own keyboard was born. 
+    </p>
+
+    <h3>Design</h3>
+    <p>
+        The first challenge was, how to fit the keyboard plate on a 3D printer - PRUSA MK3s, which has the bed size of 210x210 mm.
+        I previously saw some classic keyboards made with 3D printing, the plate was split to multiple parts and then attached together. 
+        I didn't really dig this idea, because of the aesthetics, but also I was concerned about the durability of the keyboard. I wanted to build something that can really last a while, 
+        and the plate breaking would mean it would require to desolder all the switches to repair the keyboard, which is very time consuming.
+        <br><br>
+        Uppon some research, I discovered ergonomic ortholinear keyboards, and also split keyboards. 
+        The idea of split keyboard really imposed me - it could easily fit onto the printer bed, it is ergonomic, and I also liked the hacker-like aesthetic (I am a fan of industrial design).
+        <br><br>
+        I was inspired by <a href="https://kata0510.github.io/Lily58-Document/" target="_blank">Lily58</a> and <a href="https://josefadamcik.github.io/SofleKeyboard/" target="_blank">Sofle</a> keyboards.
+        These keyboards have a column-staggered layout (as opposed to row-staggered like traditional keyboard), which is more ergonomic and adapted to the different lengths of each finger. 
+        There is no rational reason to use row-staggered keyboards nowdays, it's only a tradition from typewriters, that needed the space between the rows for the letter levers. Even most phones use ortholinear keyboards,
+        but most user doesn't notice it anyways. The column-staggered layout also helps for touch-typing which was one of my goals for building a keyboard.
+                <br><br>
+        At first I thought, I would just print some case for one of these keyboards and modify it to allow for hand wiring (building the keyboard without the use of PCB). 
+        I tried priting one case, but I disliked some things about it, so I started modifying it. After struggling a lot with Fusion360, and realising that I didn't really like it even with the modifications, I decided to start from scratch and create my own design.
+    </p>
+
+        
+    <p>
+        <img style="max-width:100%;" src="../media/3/a.png">
+    </p>
+
+    <p>
+        It has a encoder knob on each side, which can be used for setting volume, switching between windows, or whatever you program it to do. The two halves connect via TRRS cable. The plate directly mounts to the bottom half of the case, and the screws holding it together also serve as legs. 
+        These can be adjusted, so you can customize the angle of the keyboard. The Arduino Pro Micro controller I used is mounted just by pusing it into the slot, so it needed to be precise. 
+        I also wanted the switches to hold in place just by pressing them in, without using any glue. I first tried using 14x14 mm hole, but I fount out that 13.9x13.9 mm works too and holds the switches tighter. 
+        I also designed a small notch, because the switches have a small clip to be held better by the plate.
+        The plates need to be well thought-out because after soldering the switches in, there is no simple way to replace it. The bottom part of the case was not that important, so I didn't bother with it until later.
+        After a few test prints, I was happy with the result and could move to the next step.
+    </p>
+
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4192.JPG">
+    </p>
+
+    <h3>Hardware used</h3>
+        <p>
+        Here is a list of stuff I purchased for the keyboard:
+            <ul>
+                <li>Akko lavender purple switches </li>
+                <li>SSD1306 Oled display</li>
+                <li>1N4148 diodes</li>
+                <li>2x Arduino Pro Micro clone</li>
+                <li>2x EC11 rotary encoder</li>
+                <li>2x TRRS connector</li>
+                <li>Keycaps</li>
+            </ul> 
+        </p>
+
+    <h3>Assembly</h3>
+
+    <p>
+        The microcontroller doesn't have enough inputs for each switch to be directly wired, so a matrix needs to be used. The switches are connected to columns with wires and to rows with diodes. 
+    Diodes only allow the current to flow one way, so the controller knows exactly which key was pressed. In-depth explanation can be found <a href="https://docs.qmk.fm/#/how_a_matrix_works" target="_blank">here</a>. It reduces the inputs required to # of cols + # of rows.
+    In this case it is 6 + 5, instead of 28 for each half. I started with soldering the diodes together, to create the row connections.
+    </p>   
+    
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4200.JPG">
+    </p>
+
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4201.JPG">
+    </p>
+
+        <p>
+        Next step is to wire the columns. I used wires from old RJ45 cable, from which I cut off small parts of the isolation with wire stripper tool and then solder it to the switches.
+        </p>
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4203.JPG">
+    </p>
+
+    <p>
+        The most challenging part was wiring the rows and columns to the controller, while still trying to make it look nice. 
+        I wanted the case to be open on the bottom, for my incredible cable management work to be visible and also let through the RGB underglow that I planned.
+    </p>
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4206.JPG">
+    </p>
+
+
+    <h3>Bottom case and lighting</h3>
+    <p>
+    I designed the bottom, to be hexagonal patern and printed it with translucent fillament for nice glowing effect.
+    </p>
+
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4210.JPG">
+    </p>
+
+
+    <h3>Final product</h3>
+
+    <p>
+        In the end, I also made my own braided TRRS cable to connect the two halves together and make it look nice. I also plan, to make my own coiled usb cable, but i didn't find the time yet.
+
+    </p>
+
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4619.JPG">
+    </p>
+
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4613.JPG">
+    </p>
+
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4612.JPG">
+    </p>
+
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4617.JPG">
+    </p>
+
+    <p>
+        <img style="max-width:100%;" src="../media/3/DSCF4614.JPG">
+    </p>
+
+
+
+    <h3>Firmware</h3>
+
+    <p>
+        This keyboard runs on <a href="https://qmk.fm/" target="_blank">QMK firmware</a>. My configuration and keymaps can be found in <a href="https://github.com/mrkramar/qmk_firmware/tree/master/keyboards/test2" target="_blank">my fork</a>. 
+
+    </p>
+
+
+
+    <h3>Conclusion</h3>
+
+
+        <p>
+            The keyboard build was around 60 euros for the parts (except filament, solder and equipment). The handwiring process took a long time and patience, but I greatly improved my soldering skills.
+            It took a few days to get used to this layout and the absence of some keys like arrows or some navigation keys, but now I can imagine moving to even more compact layout without the num row. 
+            Maybe in the future, I will design a new keyboard with this in mind, and some other improvements too. I would like some kind of pointing device like trackball or trackpad integrated, so I don't have to move my hands off the keyboard.
+        </p>
+
+
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+  </div>
+
+</body>
+
+
+
+
+
+</html>
+
