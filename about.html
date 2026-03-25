@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="eb">
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>mk | o mne</title>
-  <link href="style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>mk blog</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('code[class^="language-"]').forEach(el => {
+                hljs.highlightElement(el);
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -14,27 +23,19 @@
     <h1>mk</h1>
     <div id="menu">
       <a href="./index.html">blog</a>
-      <a href="./about.html">about</a>
-      <a href="./contact.html">contact</a>
+      <a href="./about.html">about me</a>
     </div>
-  </div>
+</div>
 
   <div class="post">
-    <h2>about me</h2>
-    <center><img src="me.png" style="object-fit: contain; max-width: 400px;"></center>
+    <h1>about me</h1>
+    <center><img src="images/me.png" style="object-fit: contain; max-width: 300px;"></center>
     <p>
-      I am a student at <a href="https://fit.cvut.cz/en/">CTU FIT</a> in Prague.
-<br><br>
-      My interests are:
-
+      I'm a data engineer based in Prague and a graduate of <a href="https://fit.cvut.cz/en/">CTU FIT</a>. I have a passion for engineering and enjoy designing solutions to complex problems and exploring new approaches.
     </p>
-
-    <ul>
-      <li>Artificial intelligence</li>
-      <li>3D printing</li>
-      <li>Photography</li>
-      <li>Coffee</li>
-    </ul> 
+    <p>
+      Outside of work, I enjoy photography, 3D printing, and keeping up with developments in artificial intelligence. I also have a slight obsession with coffee and a healthy interest in finance.
+    </p>
   </div>
 
 </body>

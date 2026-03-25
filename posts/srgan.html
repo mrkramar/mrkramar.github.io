@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="../style.css" rel="stylesheet">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>mk blog</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('code[class^="language-"]').forEach(el => {
+                hljs.highlightElement(el);
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div id="navbar">
+    <h1>mk</h1>
+    <div id="menu">
+      <a href="../index.html">blog</a>
+      <a href="../about.html">about me</a>
+    </div>
+</div>
+
+<div class="post">
+<h1>Video upscaling (super-resolution) using neural networks</h1>
+
+<p>In this blog post, I will present my implementation of a neural network that can upscale video resolution based on Generative Adversarial Network (GAN) architecture.
+The first step was a realization that this problem could be reduced to upscaling single frame-by-frame images from the video and then connecting them at the end. 
+The process of upscaling images is generally called <i>Single Image Super-Resolution (SISR)</i>, which is nowadays a wide topic that a lot of researchers are interested in 
+and has a broad range of applications. There are some traditional techniques (Bicubic interpolation), 
+that solve this problem, but the results are often blurry and can be enhanced by the use of machine learning techniques.
+
+</p><p>
+</p><h2>Generative adversarial network</h2><p>
+</p><p>
+GAN architecture consists of two networks, that are in contest with each other. The generative network generates candidates while the discriminative network evaluates them. 
+The goal for generator is to learn to generate such a good quality candidates, that discriminator (that is trained on original data) is fooled by them and classifies them as originals. 
+<a href="https://proceedings.neurips.cc/paper/2014/file/5ca3e9b122f61f8f06494c97b1afccf3-Paper.pdf" target="_blank">Here</a> is a paper, that first proposed this architecture and describes it in detail.
+
+</p><p>
+</p><h2>SRGAN architecture</h2><p>
+</p><p>
+Upon researching SISR with GANs, I was inspired by the so-called SRGAN architecture - Super Resolution Generative Adversarial Network, which is described in <a href="https://arxiv.org/pdf/1609.04802.pdf" target="_blank">this paper</a>. For the implementation I used Python with Keras.
+
+</p><p>
+<a href="https://raw.githubusercontent.com/tensorlayer/srgan/master/img/model.jpeg" target="_blank"><img src="https://raw.githubusercontent.com/tensorlayer/srgan/master/img/model.jpeg" alt=""></a>
+
+</p><p>
+</p><h2>Generator model</h2><p>
+</p><p>
+The generator consists mainly from 16 residual blocks, which are made from following:
+</p><ul><li>Convolutional layer</li><li>Batch normalisation</li><li>Parametric RELU activation function</li><li>Convolutional layer</li><li>Batch normalisation</li></ul><p>
+</p><p>
+All convolutional layers use small kernel of size 3x3 and 64 feature maps. After the residual blocks, there are two upsampling blocks:
+</p><ul><li>Convolutional layer</li><li>Upsampling layer</li><li>Leaky RELU activation function</li></ul><p>
+</p><p>
+After these blocks, the generator ends with a convolutional layer and final activation - hyperbolic tangent. Here is the model in Keras:
+
+</p><p>
+</p><pre><code class="language-python">def upsampling_block(model, kernel_size, filters, strides):
+
+    model = Conv2D(filters = filters, kernel_size = kernel_size, strides = strides, padding = "same")(model)
+    model = UpSampling2D(size = 2)(model)
+    model = LeakyReLU(alpha = 0.2)(model)
+    
+    return model
+
+def residual_block(model, kernal_size, filters, strides):
+    
+    gen = model
+    
+    model = Conv2D(filters = filters, kernel_size = kernal_size, strides = strides, padding = "same")(model)
+    model = BatchNormalization(momentum = 0.5)(model)
+    model = PReLU(shared_axes=[1,2])(model)
+    model = Conv2D(filters = filters, kernel_size = kernal_size, strides = strides, padding = "same")(model)
+    model = BatchNormalization(momentum = 0.5)(model)
+
+    return add([gen, model])
+
+def generator(input):
+
+    model = Conv2D(filters = 64, kernel_size = (3, 3), strides = 1, padding = "same")(input)
+    model = PReLU(alpha_initializer='zeros', alpha_regularizer=None, alpha_constraint=None, shared_axes=[1,2])(model)
+
+    gen_model = model
+
+    # residual blocks
+    for index in range(16):
+        model = residual_block(model, (3, 3), 64, 1)
+
+    model = Conv2D(filters = 64, kernel_size = (3, 3), strides = 1, padding = "same")(model)
+    model = BatchNormalization(momentum = 0.5)(model)
+    model = add([gen_model, model])
+
+    # upsampling blocks
+    for index in range(2):
+        model = upsampling_block(model, (3, 3), 256, 1)
+
+    # output layer
+    model = Conv2D(filters = 3, kernel_size = (3, 3), strides = 1, padding = "same")(model)
+    model = Activation('tanh')(model)
+
+    m = Model(inputs = input, outputs = model)
+    m.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=1e-4))
+
+    return m</code></pre><p>
+</p><p>
+</p><h2>Discriminator model</h2><p>
+</p><p>
+Discriminator contains eight convolutional layers with an increasing number of 3×3
+filter kernels, increasing by a factor of 2 from 64 to 512 kernels as in the VGG network. The resulting 512 feature maps are followed by two dense layers and a final sigmoid activation function.
+
+</p><p>
+</p><pre><code class="language-python">def discriminator_block(model, filters, kernel_size, strides):
+    
+    model = Conv2D(filters = filters, kernel_size = kernel_size, strides = strides, padding = "same")(model)
+    model = BatchNormalization(momentum = 0.7)(model)
+    model = LeakyReLU(alpha = 0.2)(model)
+    
+    return model
+    
+def discriminator(input):
+
+    kernel_size = (3,3)
+    
+    model = Conv2D(filters = 64, kernel_size = kernel_size, strides = 1, padding = "same")(input)
+    model = LeakyReLU(alpha = 0.2)(model)
+    
+    model = discriminator_block(model, 64,  kernel_size, 2)
+    model = discriminator_block(model, 128, kernel_size, 1)
+    model = discriminator_block(model, 128, kernel_size, 2)
+    model = discriminator_block(model, 256, kernel_size, 1)
+    model = discriminator_block(model, 256, kernel_size, 2)
+    model = discriminator_block(model, 512, kernel_size, 1)
+    model = discriminator_block(model, 512, kernel_size, 2)
+    
+    #model = Flatten()(model)
+    model = Dense(1024)(model)
+    model = LeakyReLU(alpha = 0.2)(model)
+    model = Dense(1)(model)
+    model = Activation('sigmoid')(model)
+
+    m = Model(inputs = input, outputs = model)
+    m.compile(loss='mse', optimizer=Adam(learning_rate=1e-4), metrics=['accuracy'])
+
+    return m</code></pre><p>
+</p><p>
+</p><h2>Loss function</h2><p>The loss function consists of two parts that are summed:
+</p><ul><li>Content loss -  pre-trained VGG19 network is used to extract features from both original and generated images, the loss is then defined as the euclidean distance between the feature representations of a original image and the generated image.</li><li>Adversarial loss - generative binary cross entropy loss based on the probabilities of the discriminator</li></ul><p>
+</p><p>
+</p><pre><code class="language-python">from keras.applications.vgg19 import VGG19
+
+def vgg_loss(input):
+
+    vgg = VGG19(weights="imagenet")
+    vgg_model = Model(inputs=vgg.input, outputs=vgg.layers[9].output)
+    img_features = vgg_model(input)
+    vgg_model = Model(input, img_features)
+    vgg_model.compile(loss='mse', optimizer=Adam(0.0002, 0.5), metrics=['accuracy'])
+
+    return vgg_model</code></pre><p>
+</p><p>
+</p><h2>Dataset</h2><p>I decided to try upscaling part of <a href="https://www.youtube.com/watch?v=TeVbYCIFVa8" target="_blank">this youtube video</a>.
+First, I created a Python script, that can split videos into jpeg images and then create dataset by downscaling them.
+
+</p><p>
+</p><pre><code class="language-python">import os
+import cv2
+
+def mp4_to_jpegs(input, output):
+
+    cap = cv2.VideoCapture(input)
+
+    if not os.path.exists(input):
+        raise Exception('Path doesn\'t exist.')
+    
+    for path in [output, os.path.join(output, 'original'), os.path.join(output, 'downscaled')]:
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    counter = 0
+
+    while(True):
+        ret, frame = cap.read()
+        if not ret: break
+
+        original_name = os.path.join(output, 'original', str(counter) + '.jpg')
+        downscaled_name = os.path.join(output, 'downscaled', str(counter) + '.jpg')
+        
+        frame = cv2.resize(frame, (224, 224))
+        downscaled_frame = cv2.resize(frame, (56, 56))
+
+        cv2.imwrite(original_name, frame)
+        cv2.imwrite(downscaled_name, downscaled_frame)
+
+        counter += 1
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+    print('Done')</code></pre><p>
+</p><p>
+The last 25 seconds of the video were used as testing data, the rest for training. I had some problems using images with a ratio other than 1:1 with VGG loss, so I resized the pictures to be square. I used the following resolutions:
+</p><ul><li>224x224</li><li>56x56</li></ul><p>
+</p><p>
+To simplify the training process, I decided to use only every 5th frame from the video. In my opinion, a lot of these images are very similar, so they don't add much value to the training.
+
+</p><p>
+</p><h2>Results</h2><p>I trained the model for 160 epochs (limit of Google Collab free tier) with batch size of 16.
+Upon training the model and running the generator on the downscaled images from the test dataset, the last step was to connect the output images into a video again. I made a video, that compares the original image, downscaled image, downscaled image with bicubic interpolation and image generated by my trained SRGAN.
+   
+As we can see in these frames taken from the upscaled video, the results are not that bad. We can see some improvement over bi-cubic interpolation. But in one particular scene, there is small anomaly where the fire is displayed. The rest of the video doesn't contain any similar glitches.
+
+</p><p>
+<a href="../images/srgan/Screenshot_1.png" target="_blank"><img src="../images/srgan/Screenshot_1.png" alt=""></a>
+<a href="../images/srgan/Screenshot_2.png" target="_blank"><img src="../images/srgan/Screenshot_2.png" alt=""></a>
+<a href="../images/srgan/Screenshot_3.png" target="_blank"><img src="../images/srgan/Screenshot_3.png" alt=""></a>
+
+</p><p>
+Here is the full comparison video, after connecting the output frames together:
+<iframe width="500" height="500" style="display: block; margin: auto;" src="https://www.youtube.com/embed/iM3fyjdPLi0"></iframe> 
+
+</p><p>
+</p><h2>Conclusion</h2><p>The output demonstrates that this architecture works for image or video upscaling and can offer better results than bicubic interpolation. I noticed some anomalies on the test dataset, which I think could be solved by using a larger training dataset with more diverse pictures - for example the <a href="https://data.vision.ee.ethz.ch/cvl/DIV2K/" target="_blank">DIV2K dataset</a> or <a href="https://www.image-net.org/" target="_blank">ImageNet</a>, and also longer training, which wasn't possible with the free tier of Google Colab. When I trained the network for only about 50 epochs, the anomalies on that same scene were much worse.
+
+</p><p>
+Prior to this, I had zero practical experience with neural networks and deep learning frameworks, so I learned a little how to use Keras and how GANs work.
+
+</p><p>
+
+</p><p>
+</p>
+
+</div>
+
+</body>
+</html>

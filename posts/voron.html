@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="../style.css" rel="stylesheet">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>mk blog</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('code[class^="language-"]').forEach(el => {
+                hljs.highlightElement(el);
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div id="navbar">
+    <h1>mk</h1>
+    <div id="menu">
+      <a href="../index.html">blog</a>
+      <a href="../about.html">about me</a>
+    </div>
+</div>
+
+<div class="post">
+<h1>Building a spaceship 3D printer from scratch - the Voron Trident</h1>
+
+<p>I decided to challenge my skills and build something really complex and great. A machine that is essentially a small factory that can produce physical objects in a very short amount of time. After doing a lot of research on the internet, I stumbled upon the Voron 3D printer. It struck me as a remarkably well thought-out project, with a large and active community.
+
+</p><p>
+The Voron design offers a few types of printers, the most well-known is probably the v2.4 model. I went with the Trident, drawn by the idea of fixed gantry which could in theory allow greater maximum acceleration (I really liked looking at videos of very fast printers and wanted to achieve something similar). 
+
+</p><p>
+</p><h2>Hardware</h2><p>
+</p><p>
+I selected the kit from company <a href="https://formbot3d.com" target="_blank">Formbot</a> which seemed to offer the best quality/price ratio. The printer was shipped from the Czech warehouse and it took around one week.
+
+</p><p>
+<a href="../images/voron/DSCF6957.jpg" target="_blank"><img src="../images/voron/DSCF6957.jpg" alt=""></a>
+
+</p><p>
+The kit was very nicely packaged, nothing was damaged during shipping. The stepper motors are from the brand MOONS, which is known for its good quality. The extrusions are pre-drilled and threaded, and the ends are painted black, which is a nice touch. The kit contains everything you need to build the printer, but it would not be me if I hadn't also decided on some additional mods for which I needed to obtain the parts separately:
+
+</p><p>
+</p><ul><li><a href="https://github.com/chirpy2605/voron/tree/main/V0/Dragon_Burner" target="_blank">DragonBurner toolhead</a> - much lighter than the stock toolhead (also looks way cooler in my opinion)</li><li><a href="https://github.com/Annex-Engineering/Sherpa_Mini-Extruder" target="_blank">Sherpa Mini extruder</a> - lightweight extruder compatibile with the DragonBurner toolhead</li><li><a href="https://www.aliexpress.com/item/1005008066989344.html" target="_blank">BambuLab hotend</a> - great price to performance ratio</li><li><a href="https://github.com/jlas1/Klicky-Probe" target="_blank">Klicky Probe</a> - a probe that magnetically ataches to the toolhead when needed and stored away during the print</li><li><a href="https://biqu.equipment/products/bigtreetech-ebb-36-42-can-bus-for-bigtreetech-ebb-36-42-can-bus-u2c-v2-1-for-connecting-klipper-expansion-device-support-pt1000connecting-klipper-expansion-device?variant=39760665149538" target="_blank">EBB 36 CAN board</a> - the toolhead is connected to the main board using just 4 cables</li><li><a href="https://www.printables.com/model/757824-symmetrical-bfi-mod-by-tetsu-voron-remix" target="_blank">Symmetrical Beefy Front Idlers</a> - alternative front idlers which offer higher durability</li><li><a href="https://github.com/Annex-Engineering/Annex-Engineering_User_Mods/tree/main/Printers/All_Printers/annex_dev-Panel_2020_Clips_and_Hinges" target="_blank">Annex Enginnering panel clips</a> - I prefer the look of these</li></ul><p>
+</p><p>
+<a href="../images/voron/DSCF6960.jpg" target="_blank"><img src="../images/voron/DSCF6960.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+<a href="../images/voron/DSCF6969.jpg" target="_blank"><img src="../images/voron/DSCF6969.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+</p><h2>Printed parts</h2><p>
+</p><p>
+The kit does not include the 3D printed parts. I printed mine on a Prusa MK3S+ in a local hacker space. For the filament, I used the Prusa ASA Galaxy black, which looks very cool, together with some random off-white ABS. The parts came out looking very nice.
+
+</p><p>
+<a href="../images/voron/DSCF6962.jpg" target="_blank"><img src="../images/voron/DSCF6962.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+<a href="../images/voron/DSCF6967.jpg" target="_blank"><img src="../images/voron/DSCF6967.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+</p><h2>Frame assembly</h2><p>
+</p><p>
+I started the build with the smaller sub-assemblies for the gantry. This part was quite fast and not very difficult.
+
+</p><p>
+<a href="../images/voron/DSCF6972.jpg" target="_blank"><img src="../images/voron/DSCF6972.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+Following was probably the most challenging part — building the frame. It took several hours and I rebuilt the whole thing 3 or 4 times to achieve the precision that I was satisfied with.
+I built the frame on top of a glass surface and used a machinist square to help with the accuracy. A good tip I saw online was to measure the diagonals of the frame (they should be equal within 1 millimeter) to ensure the frame's squareness.
+
+</p><p>
+<a href="../images/voron/DSCF6978.jpg" target="_blank"><img src="../images/voron/DSCF6978.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+<a href="../images/voron/DSCF6982.jpg" target="_blank"><img src="../images/voron/DSCF6982.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+<a href="../images/voron/DSCF6990.jpg" target="_blank"><img src="../images/voron/DSCF6990.jpg" alt=""></a>
+
+</p><p>
+The next part was bathing the linear rails in isopropyl alcohol and lubricating them. The process is a bit messy and requires some patience. Most importantly, you need to be careful not to let the carriage slide off the rail, as it is near impossible to reassemble.
+<a href="../images/voron/DSCF6995.jpg" target="_blank"><img src="../images/voron/DSCF6995.jpg" alt=""></a>
+
+</p><p>
+When the rails are lubricated, they can be mounted to the frame. Next comes the installation of the belts. It is highly recommended to cut both belts to exactly the same length. The only way to ensure this is to count each individual ridge and match them. It makes the process of adjusting the tension much simpler. An alternative method is to use a guitar tuner and "tune" the belts to a matching frequency. It is now finally starting to look like a printer.
+
+</p><p>
+<a href="../images/voron/DSCF6999.jpg" target="_blank"><img src="../images/voron/DSCF6999.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+</p><h2>Electronics</h2><p>
+</p><p>
+The electronics part is probably the most dangerous, as the Voron uses AC to power the heated bed. Always triple check everything with a multimeter! The kit comes with an AC splitter — one part goes to the DC power supply and the second to the relay, which is used for the bed.
+
+</p><p>
+<a href="../images/voron/DSCF7004.jpg" target="_blank"><img src="../images/voron/DSCF7004.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+</p><h2>Toolhead</h2><p>
+</p><p>
+The toolhead assembly was the most enjoyable part of the whole build for me. I decided to use the EBB36 CAN board to simplify the wiring — everything on the toolhead connects to the board, and the board is connected to the main board using only four wires (24V, Ground, CAN High, CAN Low). As the hot end I chose the Bambu Lab hotend clone, which offers unbelievable performance for the price. The hard part was crimping the connectors for every single cable and even making a few custom ones (for example for the LEDs), but at least I learned something new. I think the result is really great and I'm very happy with it.
+
+</p><p>
+<a href="../images/voron/DSCF7018.jpg" target="_blank"><img src="../images/voron/DSCF7018.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+<a href="../images/voron/DSCF7023.jpg" target="_blank"><img src="../images/voron/DSCF7023.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+<a href="../images/voron/DSCF7025.jpg" target="_blank"><img src="../images/voron/DSCF7025.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+</p><h2>First prints</h2><p>
+</p><p>
+Putting it all together, it was time for a first test. The first homing was very scary — I recommend setting the speed as slow as possible and being ready to hit the emergency stop at all times. It proved useful in my case, as I had set the Z offset in the wrong direction, which almost caused the bed to crash into the toolhead. After the initial setup of the Z offset and the max distances, I ran a first print. It was very bad, mainly due to the lack of any tuning.
+
+</p><p>
+<a href="../images/voron/DSCF7010.jpg" target="_blank"><img src="../images/voron/DSCF7010.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+
+</p><p>
+</p><h2>Tuning</h2><p>
+</p><p>
+The tuning process is very time consuming and is composed of many steps. I found a great site that describes this process very well — <a href="https://ellis3dp.com/Print-Tuning-Guide/" target="_blank">Ellis' Print Tuning Guide</a>. Below, you can see the difference between the first print without any tuning, and the same model printed after tuning. The difference is pretty obvious.
+
+</p><p>
+<a href="../images/voron/IMG_8334.webp" target="_blank"><img src="../images/voron/IMG_8334.webp" alt=""></a>
+
+</p><p>
+
+</p><p>
+</p><h3>Gantry squareness, bed leveling</h3><p>
+</p><p>
+The Trident has a fixed gantry compared to the v2.4, therefore it is much simpler to square. To check it, I measured the diagonals and double-checked with a machinist square. The next thing I measured was the flatness of the bed using a Klipper firmware feature. This process can also reveal some problems with the build. Luckily, I got a very above-average result, which made me very happy.
+
+</p><p>
+<a href="../images/voron/mesh.webp" target="_blank"><img src="../images/voron/mesh.webp" alt=""></a>
+
+</p><p>
+</p><h3>Extruder, first layer, pressure advance</h3><p>
+</p><p>
+The extruder calibration ensures that the extruder motor pushes out the correct amount of filament for each command sent from the slicer software — this is crucial for achieving accurate prints. The calibration process involves extruding a set length of filament, measuring the actual distance extruded, and multiplying the rotation distance parameter:
+
+</p><p>
+</p><pre><code class="language-python">&lt;new_rotation_distance&gt; = &lt;previous_rotation_distance&gt; * ( &lt;actual_extrude_distance&gt; / 100 )</code></pre><p>
+</p><p>
+I recommend using tape to mark the distance on the filament and measuring with calipers to be as precise as possible.
+
+</p><p>
+The first layer setup is a less deterministic process and mostly relies on visual observation — this makes it quite easy as you don't need to be very precise. A good first layer prevents warping, lifting, or failed prints.
+
+</p><p>
+The last, and for me the most time consuming, process was the pressure advance calibration. Pressure advance improves print quality by compensating for the pressure buildup in the hotend during acceleration and deceleration. It's especially useful for faster printers, where speed changes can cause oozing (excess filament leaking out) at corners.
+
+</p><p>
+For this purpose, there is a very handy <a href="https://ellis3dp.com/Pressure_Linear_Advance_Tool/" target="_blank">calibration tool</a> that generates a g-code file with different pressure advance values, allowing you to select the sharpest looking corner. It is important to use the same acceleration as you intend to use during normal printing.
+
+</p><p>
+<a href="../images/voron/IMG_8336.webp" target="_blank"><img src="../images/voron/IMG_8336.webp" alt=""></a>
+
+</p><p>
+
+</p><p>
+</p><h3>Input shaping</h3><p>
+</p><p>
+Input shaping in 3D printing is an advanced tuning technique used to reduce vibrations and resonances in your printer, which cause "ringing" or "ghosting" artifacts — those unwanted echoes or ripples on printed surfaces, especially at high speeds or accelerations.
+
+</p><p>
+To identify the printer's resonant frequencies, I used the <a href="https://github.com/Frix-x/klippain-shaketune" target="_blank">Shake&Tune Klipper plugin</a>. The EBB36 has an onboard accelerometer which was used for these measurements. After some belt tension adjustment, I think I got some good results:
+
+</p><p>
+<div style="max-width: 70%; width: 100%; margin: 0 auto; display: flex; justify-content: space-around; gap: 1rem;">
+<img src="../images/voron/shaper_20240529_155418_X.png" style="width: 49%;">
+<img src="../images/voron/shaper_20240529_164350_Y.webp" style="width: 49%;">
+</div>
+
+</p><p>
+To achieve the highest possible accelerations, it is important to:
+</p><ul><li>Minimize the moving mass (e.g., lightweight toolhead and carriage)</li><li>Precisely match belt tension between both belts</li><li>Ensure a rigid frame and high-quality linear rails</li><li>Use powerful stepper motors</li></ul><p>
+</p><p>
+</p><h3>Tuning summary</h3><p>
+</p><p>
+Overall, the time spent on tuning was at least equal to the time spent on the build itself. It involved a lot of troubleshooting to achieve desirable results, but in the end it was really worth it.
+
+</p><p>
+<a href="../images/voron/cube.webp" target="_blank"><img src="../images/voron/cube.webp" alt=""></a>
+
+</p><p>
+</p><h2>Panels + extras</h2><p>
+</p><p>
+For the panel clips, I found an alternative that I liked better than the stock ones — the <a href="https://github.com/Annex-Engineering/Annex-Engineering_User_Mods/tree/main/Printers/All_Printers/annex_dev-Panel_2020_Clips_and_Hinges" target="_blank">Annex Engineering panel clips</a>.
+
+</p><p>
+I bought an extra roll of 3mm foam tape to insulate the front door. I used a self-modified version of <a href="https://www.printables.com/model/348181-270-clamping-hinges" target="_blank">these 270 degree hinges</a> and the <a href="https://www.printables.com/model/371814-tiny-door-handles-for-voron-24" target="_blank">tiny door handles</a>, which are magnetic and also fit the aesthetic.
+
+</p><p>
+The skirts are still not finished as of writing this :D
+
+</p><p>
+<a href="../images/voron/IMG_8387.jpg" target="_blank"><img src="../images/voron/IMG_8387.jpg" alt=""></a>
+
+</p><p>
+
+</p><p>
+</p><h2>Printing demo</h2><p>
+</p><p>
+Enjoy this short video showcasing how capable this machine is:
+
+</p><p>
+<iframe width="500" height="500" style="display: block; margin: auto;" src="https://www.youtube.com/embed/qAHad0vWSxI"></iframe> 
+
+</p><p>
+
+</p><p>
+</p><h2>Final word</h2><p>
+</p><p>
+This build was one of the most satisfying projects I have undertaken so far. Every part of the process — from squaring the frame over and over again, to crimping connectors, to dialing in pressure advance — taught me something new, and I came away with a much deeper understanding of 3D printing than I ever expected. The Voron Trident turned out to be exactly what I was looking for: a fast, precise, and highly capable machine that I built and understand from the ground up. Seeing the difference between that first terrible print and the results after proper tuning made all the hours of troubleshooting feel worthwhile.
+
+</p><p>
+If you are considering a Voron build, keep in mind that it is not a weekend project. But if you enjoy the process of building, problem-solving, and pushing a machine to its limits, there are few projects that will reward you as much as this one.
+</p>
+
+</div>
+
+</body>
+</html>
